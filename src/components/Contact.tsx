@@ -2,7 +2,13 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Calendar } from 'lucide-react'
+import { Github, Linkedin, Twitter, Mail, Send, CheckCircle, AlertCircle } from 'lucide-react'
+
+interface FormData {
+  name: string
+  email: string
+  message: string
+}
 
 export default function Contact() {
   const [ref, inView] = useInView({
@@ -10,16 +16,26 @@ export default function Contact() {
     threshold: 0.1,
   })
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    message: ''
+    message: '',
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log(formData)
+    setStatus('loading')
+
+    // Simulate form submission
+    setTimeout(() => {
+      setStatus('success')
+      setFormData({ name: '', email: '', message: '' })
+      
+      // Reset success message after 3 seconds
+      setTimeout(() => setStatus('idle'), 3000)
+    }, 1000)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,8 +45,35 @@ export default function Contact() {
     }))
   }
 
+  const socialLinks = [
+    {
+      name: 'GitHub',
+      icon: Github,
+      url: 'https://github.com/yourusername',
+      color: 'hover:text-gray-900 dark:hover:text-white'
+    },
+    {
+      name: 'LinkedIn',
+      icon: Linkedin,
+      url: 'https://linkedin.com/in/yourusername',
+      color: 'hover:text-blue-700 dark:hover:text-blue-400'
+    },
+    {
+      name: 'Twitter',
+      icon: Twitter,
+      url: 'https://twitter.com/yourusername',
+      color: 'hover:text-blue-500 dark:hover:text-blue-300'
+    },
+    {
+      name: 'Email',
+      icon: Mail,
+      url: 'mailto:your.email@example.com',
+      color: 'hover:text-red-600 dark:hover:text-red-400'
+    }
+  ]
+
   return (
-    <section id="contact" className="py-20" ref={ref}>
+    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -38,80 +81,23 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Let's Work Together</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            I'm currently available for freelance projects and full-time opportunities.
-            Let's build something amazing together.
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Get in Touch</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Let's discuss your next project or just say hello!
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
-          >
-            <div className="space-y-8">
-              <div className="flex items-center space-x-4">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-full">
-                  <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Email</h3>
-                  <a href="mailto:alex@thompson.dev" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    alex@thompson.dev
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-full">
-                  <Calendar className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Schedule a Call</h3>
-                  <a href="https://calendly.com/alexthompson" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                    Book a time on Calendly
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-full">
-                  <MapPin className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Location</h3>
-                  <p className="text-gray-600 dark:text-gray-300">San Francisco, CA</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4 pt-4">
-                <a
-                  href="https://github.com/alexthompson"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <Github className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-                </a>
-                <a
-                  href="https://linkedin.com/in/alexthompson"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <Linkedin className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-                </a>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
+            className="bg-white dark:bg-gray-700 rounded-lg p-8 shadow-lg"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Name
                 </label>
                 <input
@@ -120,12 +106,13 @@ export default function Contact() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   required
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-800 dark:text-white"
+                  placeholder="Your name"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Email
                 </label>
                 <input
@@ -134,12 +121,13 @@ export default function Contact() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   required
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-800 dark:text-white"
+                  placeholder="your.email@example.com"
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Message
                 </label>
                 <textarea
@@ -147,19 +135,100 @@ export default function Contact() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows={4}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   required
+                  rows={4}
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-800 dark:text-white"
+                  placeholder="Your message..."
                 />
               </div>
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                disabled={status === 'loading'}
+                className={`w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors ${
+                  status === 'loading' ? 'opacity-75 cursor-not-allowed' : ''
+                }`}
               >
-                Send Message
-                <Send className="ml-2 -mr-1 h-5 w-5" />
+                {status === 'loading' ? (
+                  <span className="flex items-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                  </span>
+                ) : (
+                  <span className="flex items-center">
+                    <Send className="w-5 h-5 mr-2" />
+                    Send Message
+                  </span>
+                )}
               </button>
+              {status === 'success' && (
+                <div className="flex items-center text-green-600 dark:text-green-400">
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  Message sent successfully!
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="flex items-center text-red-600 dark:text-red-400">
+                  <AlertCircle className="w-5 h-5 mr-2" />
+                  Failed to send message. Please try again.
+                </div>
+              )}
             </form>
+          </motion.div>
+
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
+          >
+            <div className="bg-white dark:bg-gray-700 rounded-lg p-8 shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                Connect With Me
+              </h3>
+              <div className="flex space-x-6">
+                {socialLinks.map((social) => {
+                  const Icon = social.icon
+                  return (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`text-gray-600 dark:text-gray-400 transition-colors ${social.color}`}
+                      aria-label={social.name}
+                    >
+                      <Icon className="w-6 h-6" />
+                    </a>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-gray-700 rounded-lg p-8 shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                Location
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Based in San Francisco, CA<br />
+                Available for remote work worldwide
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-700 rounded-lg p-8 shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                Availability
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Currently available for:<br />
+                • Full-time positions<br />
+                • Freelance projects<br />
+                • Technical consulting
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>

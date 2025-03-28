@@ -7,6 +7,7 @@ import Skills from './components/Skills'
 import Blog from './components/Blog'
 import Testimonials from './components/Testimonials'
 import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
@@ -42,11 +43,7 @@ function App() {
         <Contact />
       </main>
 
-      <footer className="bg-gray-50 dark:bg-gray-800 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 dark:text-gray-300">
-          <p>© {new Date().getFullYear()} Alex Thompson. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
