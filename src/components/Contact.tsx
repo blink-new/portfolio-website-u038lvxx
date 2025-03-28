@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Mail, Phone, MapPin, Send } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Calendar } from 'lucide-react'
 
 export default function Contact() {
   const [ref, inView] = useInView({
@@ -38,9 +38,10 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Get in Touch</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Let's Work Together</h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Have a project in mind? Let's talk about it.
+            I'm currently available for freelance projects and full-time opportunities.
+            Let's build something amazing together.
           </p>
         </motion.div>
 
@@ -57,16 +58,20 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Email</h3>
-                  <p className="text-gray-600 dark:text-gray-300">your.email@example.com</p>
+                  <a href="mailto:alex@thompson.dev" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                    alex@thompson.dev
+                  </a>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
                 <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-full">
-                  <Phone className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  <Calendar className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Phone</h3>
-                  <p className="text-gray-600 dark:text-gray-300">+1 (555) 123-4567</p>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Schedule a Call</h3>
+                  <a href="https://calendly.com/alexthompson" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                    Book a time on Calendly
+                  </a>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
@@ -77,6 +82,24 @@ export default function Contact() {
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Location</h3>
                   <p className="text-gray-600 dark:text-gray-300">San Francisco, CA</p>
                 </div>
+              </div>
+              <div className="flex items-center space-x-4 pt-4">
+                <a
+                  href="https://github.com/alexthompson"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                >
+                  <Github className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+                </a>
+                <a
+                  href="https://linkedin.com/in/alexthompson"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                >
+                  <Linkedin className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+                </a>
               </div>
             </div>
           </motion.div>
@@ -131,7 +154,7 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
               >
                 Send Message
                 <Send className="ml-2 -mr-1 h-5 w-5" />

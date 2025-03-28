@@ -6,22 +6,22 @@ import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 
 const testimonials = [
   {
-    name: "John Doe",
-    role: "CEO at TechCorp",
-    content: "Working with this developer was an absolute pleasure. They delivered exactly what we needed, on time and with excellent quality.",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    name: "Sarah Chen",
+    role: "CEO at HealthTech Solutions",
+    content: "Alex developed our health tracking platform from scratch. His technical expertise and attention to detail resulted in a product that exceeded our expectations. The platform has been crucial to our business growth.",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
   },
   {
-    name: "Jane Smith",
-    role: "Product Manager",
-    content: "Outstanding work! The attention to detail and technical expertise demonstrated throughout the project was impressive.",
+    name: "Marcus Rodriguez",
+    role: "Founder of CryptoVest",
+    content: "Working with Alex on our cryptocurrency dashboard was fantastic. He brought innovative solutions to complex challenges and delivered a product that our users love. His expertise in real-time data handling is impressive.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  },
+  {
+    name: "Emily Watson",
+    role: "Product Manager at TaskFlow",
+    content: "Alex transformed our project management workflow with his robust API solution. His understanding of backend architecture and security best practices was evident throughout the development process.",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-  },
-  {
-    name: "Mike Johnson",
-    role: "Startup Founder",
-    content: "They took our vision and turned it into reality. The end result exceeded our expectations.",
-    image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
   }
 ]
 
@@ -49,7 +49,10 @@ export default function Testimonials() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Testimonials</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Client Testimonials</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Here's what clients say about working with me
+          </p>
         </motion.div>
 
         <div className="relative">
@@ -62,7 +65,7 @@ export default function Testimonials() {
             className="bg-white dark:bg-gray-700 rounded-lg p-8 shadow-lg"
           >
             <Quote className="w-12 h-12 text-blue-600 dark:text-blue-400 mb-6" />
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">{testimonials[currentIndex].content}</p>
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 italic">"{testimonials[currentIndex].content}"</p>
             <div className="flex items-center">
               <img
                 src={testimonials[currentIndex].image}
